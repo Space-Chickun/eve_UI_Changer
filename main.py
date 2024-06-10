@@ -29,10 +29,10 @@ def main():
 
     for filename in os.listdir(folder_template):
         if filename.startswith("core_char_") and not filename.startswith("core_char__"):
-            char = re.search(regex_pattern, filename)
+            char = re.search('[0-9]{7,12}', filename)
             template_char = str(char.group())
         elif filename.startswith("core_user_") and not filename.startswith("core_user__"):
-            char = re.search(regex_pattern, filename)
+            char = re.search('[0-9]{7,12}', filename)
             template_user = str(char.group())
 
 ### Find the IDs to replace and replace them into the new folder! ###
@@ -41,13 +41,13 @@ def main():
         if filename.startswith("core_char_") and not filename.startswith("core_char__"):
             char = re.search(regex_pattern, filename)
             copy_file = "{}\\core_char_{}.dat".format(folder_template, template_char)
-            dest_file = "{}\\core_char_{}.dat".format(folder_destination, char.group())
+            dest_file = "{}\\{}".format(folder_destination, char.string)
             shutil.copy(copy_file, dest_file)
 
         elif filename.startswith("core_user_") and not filename.startswith("core_user__"):
             char = re.search(regex_pattern, filename)
             copy_file = "{}\\core_user_{}.dat".format(folder_template, template_user)
-            dest_file = "{}\\core_user_{}.dat".format(folder_destination, char.group())
+            dest_file = "{}\\{}".format(folder_destination, char.string)
             shutil.copy(copy_file, dest_file)
 
 main()
